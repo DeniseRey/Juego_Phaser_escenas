@@ -178,7 +178,9 @@ export class Play extends Phaser.Scene {
 
       this.scene.start(
         "Play1",
-        { score: score, initialTime: initialTime } // se pasa el puntaje como dato a la escena RETRY
+        { score: score, 
+          initialTime: initialTime 
+        } // se pasa el puntaje y el tiempo inicial como dato a la proxima escena
       );
     }
   }
