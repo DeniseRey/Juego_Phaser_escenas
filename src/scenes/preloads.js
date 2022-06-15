@@ -7,20 +7,23 @@ export class Preloads extends Phaser.Scene {
   }
 
   preload() {
-    this.load.image("sad_cow", "public/assets/images/sad_cow.png");
-    this.load.image("phaser_logo", "public/assets/images/phaser_logo.png");
+    
     this.load.image(
       "mainmenu_bg",
-      "public/assets/images/main_menu_background.png"
+      "public/assets/tilemaps/fondo3.png"
     );
     this.load.image("sky", "public/assets/images/sky.png");
-    this.load.image("ground", "public/assets/images/platform.png");
-    this.load.image("star", "public/assets/images/star.png");
-    this.load.image("bomb", "public/assets/images/bomb.png");
-    this.load.spritesheet("dude", "public/assets/images/dude.png", {
+    this.load.image("manzana", "public/assets/tilemaps/manzana 1.png");
+    this.load.image("manzana1", "public/assets/tilemaps/manzana 2.png");
+    this.load.image("manzana2", "public/assets/tilemaps/manzana 3.png");
+    this.load.image("manzana3", "public/assets/tilemaps/manzana 4.png");
+    this.load.spritesheet("dude", "public/assets/images/sprite.png", {
       frameWidth: 32,
-      frameHeight: 48,
+      frameHeight: 38,
     });
+    this.load.image("win", "public/assets/images/win.png")
+    this.load.image("lose", "public/assets/images/f.png")
+    this.load.image("principal", "public/assets/images/principal.png")
   }
 
   create() {

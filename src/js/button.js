@@ -5,15 +5,15 @@ class Button {
             .setOrigin(0.5)
             .setPadding(10)
             .setStyle({ 
-                backgroundColor: '#fff', 
+                backgroundColor: '#FFE858', 
                 fontSize: '50px', 
-                fill: '#000', 
-                fontFamily: 'Arial'
+                fill: '#A31C3F', 
+                fontFamily: 'Cambria'
             })
             .setInteractive({ useHandCursor: true })
             .on('pointerdown', () => callback())
-            .on('pointerover', () => button.setStyle({ fill: '#0000ff' }))
-            .on('pointerout', () => button.setStyle({ fill: '#000' }));
+            .on('pointerover', () => button.setStyle({ fill: '#FC58ED' }))
+            .on('pointerout', () => button.setStyle({ fill: '#A31C3F' }));
     }
 }
 

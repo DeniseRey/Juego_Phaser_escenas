@@ -6,39 +6,43 @@ var cursors;
 var score;
 var gameOver;
 var scoreText;
-var initialTime
-var timeText
-var timedEvent
+var initialTime1
+var timeText1
+var timedEvent1
 
 // Clase Play, donde se crean todos los sprites, el escenario del juego y se inicializa y actualiza toda la logica del juego.
-export class Play extends Phaser.Scene {
+export class Play1 extends Phaser.Scene {
   constructor() {
     // Se asigna una key para despues poder llamar a la escena
-    super("Play");
+    super("Play1");
+  }
+
+  init(data){
+    score = data.score
+    initialTime1 = data.initialTime
   }
 
   preload() {
-    this.load.tilemapTiledJSON("map", "public/assets/tilemaps/mapa1.json");
-    this.load.image("tilesBelow", "public/assets/tilemaps/fondo1.png");
-    this.load.image("tilesPlatform", "public/assets/tilemaps/plataformas.png");
+    this.load.tilemapTiledJSON("map1", "public/assets/tilemaps/mapa2.json");
+    this.load.image("tilesBelow1", "public/assets/tilemaps/fondo2.png");
+    this.load.image("tilesPlatform1", "public/assets/tilemaps/plataforma2.png");
   }
 
   create() {
-    const map = this.make.tilemap({ key: "map" });
+    const map = this.make.tilemap({ key: "map1" });
 
     // Parameters are the name you gave the tileset in Tiled and then the key of the tileset image in
     // Phaser's cache (i.e. the name you used in preload)
-    const tilesetBelow = map.addTilesetImage("fondo1", "tilesBelow");
+    const tilesetBelow = map.addTilesetImage("fondo2", "tilesBelow1");
     const tilesetPlatform = map.addTilesetImage(
-      "plataformas",
-      "tilesPlatform"
+      "plataforma 2",
+      "tilesPlatform1"
     );
 
     // Parameters: layer name (or index) from Tiled, tileset, x, y
     const belowLayer = map.createLayer("fondo", tilesetBelow, 0, 0);
     const worldLayer = map.createLayer("plataformas", tilesetPlatform, 0, 0);
     const objectsLayer = map.getObjectLayer("objetos");
-
 
     worldLayer.setCollisionByProperty({ colision: true });
 
@@ -76,10 +80,10 @@ export class Play extends Phaser.Scene {
 
       const { x = 0, y = 0, name, type } = objData;
       switch (name) {
-        case "manzana": {
+        case "manzana1": {
           // add star to scene
           // console.log("estrella agregada: ", x, y);
-          var star = stars.create(x, y, "manzana");
+          var star = stars.create(x, y, "manzana1");
           star.setBounceY(Phaser.Math.FloatBetween(0.4, 0.8));
           break;
         }
@@ -90,7 +94,7 @@ export class Play extends Phaser.Scene {
     bombs = this.physics.add.group();
 
     //  The score
-    scoreText = this.add.text(30, 6, "score: 0", {
+    scoreText = this.add.text(30, 6, "score: " + score, {
       fontSize: "32px",
       fill: "#000",
     });
@@ -107,29 +111,26 @@ export class Play extends Phaser.Scene {
     this.physics.add.collider(player, bombs, this.hitBomb, null, this);
 
     gameOver = false;
-    score = 0;
-
-    // Si no junta las estrellas en 30 segundas --> Game Over
-    initialTime = 60
+    
     //timedEvent = this.time.delayedCall(1000, this.onSecond, [], this, true);
-    timedEvent = this.time.addEvent({ 
+    timedEvent1 = this.time.addEvent({ 
       delay: 1000, 
       callback: this.onSecond, 
       callbackScope: this, 
       loop: true 
     });
 
-    timeText = this.add.text(500, 16, '', { fontSize: '32px', fill: '#000' });
+    timeText1 = this.add.text(500, 16, '', { fontSize: '32px', fill: '#000' });
   }
 
   onSecond() {
     if (! gameOver)
     {   
         
-        initialTime = initialTime - 1; // One second
-        timeText.setText('Countdown: ' + initialTime);
-        if (initialTime == 0) {
-            timedEvent.paused = true;
+        initialTime1 = initialTime1 - 1; // One second
+        timeText1.setText('Countdown: ' + initialTime1);
+        if (initialTime1 == 0) {
+            timedEvent1.paused = true;
             this.scene.start(
               "Retry",
               { score: score } // se pasa el puntaje como dato a la escena RETRY
@@ -177,8 +178,8 @@ export class Play extends Phaser.Scene {
       });
 
       this.scene.start(
-        "Play1",
-        { score: score, initialTime: initialTime } // se pasa el puntaje como dato a la escena RETRY
+        "Play2",
+        { score: score } // se pasa el puntaje como dato a la escena RETRY
       );
     }
   }

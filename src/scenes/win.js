@@ -3,9 +3,9 @@ import Button from "../js/button.js";
 var score;
 
 // Clase Retry, donde se crean los botones, el logo y el fondo del menú derrota
-export class Retry extends Phaser.Scene {
+export class Win extends Phaser.Scene {
   constructor() {
-    super("Retry");
+    super("Win");
   }
 
   init(data) {
@@ -15,13 +15,8 @@ export class Retry extends Phaser.Scene {
 
   create() {
     // Fondo del menú derrota
-    this.add
-      .image(
-        this.cameras.main.centerX,
-        this.cameras.main.centerY,
-        "lose"
-      )
-  
+    this.add.image(this.cameras.main.centerX, this.cameras.main.centerY, 'win');
+    
     
     // Texto que muestra el puntaje maximo alcanzado
     this.add
@@ -35,7 +30,7 @@ export class Retry extends Phaser.Scene {
     // Boton para volver a jugar
     const boton = new Button(
       this.cameras.main.centerX,
-      this.cameras.main.centerY + this.cameras.main.centerY / 2,
+      this.cameras.main.centerY + this.cameras.main.centerY /2,
       "Retry",
       this,
       () => {
