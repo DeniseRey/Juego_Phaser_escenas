@@ -6,7 +6,7 @@ var cursors;
 var score;
 var gameOver;
 var scoreText;
-var initialTime1
+var initialTime
 var timeText1
 var timedEvent1
 
@@ -19,7 +19,7 @@ export class Play1 extends Phaser.Scene {
 
   init(data){
     score = data.score
-    initialTime1 = data.initialTime
+    initialTime = data.initialTime
   }
 
   preload() {
@@ -127,9 +127,9 @@ export class Play1 extends Phaser.Scene {
     if (! gameOver)
     {   
         
-        initialTime1 = initialTime1 - 1; // One second
-        timeText1.setText('Countdown: ' + initialTime1);
-        if (initialTime1 == 0) {
+        initialTime = initialTime - 1; // One second
+        timeText1.setText('Countdown: ' + initialTime);
+        if (initialTime == 0) {
             timedEvent1.paused = true;
             this.scene.start(
               "Retry",
@@ -179,7 +179,7 @@ export class Play1 extends Phaser.Scene {
 
       this.scene.start(
         "Play2",
-        { score: score } // se pasa el puntaje como dato a la escena RETRY
+        { score: score, initialTime: initialTime } // se pasa el puntaje como dato a la escena RETRY
       );
     }
   }
