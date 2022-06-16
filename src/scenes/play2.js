@@ -9,6 +9,8 @@ var scoreText;
 var initialTime
 var timeText2
 var timedEvent2
+var bite
+var jump
 
 // Clase Play, donde se crean todos los sprites, el escenario del juego y se inicializa y actualiza toda la logica del juego.
 export class Play2 extends Phaser.Scene {
@@ -30,6 +32,9 @@ export class Play2 extends Phaser.Scene {
 
   create() {
     const map = this.make.tilemap({ key: "map2" });
+
+    bite = this.sound.add('bite', {volume: 0.5})
+    jump = this.sound.add('jump', {volume: 0.5})
 
     // Parameters are the name you gave the tileset in Tiled and then the key of the tileset image in
     // Phaser's cache (i.e. the name you used in preload)
@@ -95,8 +100,8 @@ export class Play2 extends Phaser.Scene {
 
     //  The score
     scoreText = this.add.text(30, 6, "score: " + score, {
-      fontSize: "32px",
-      fill: "#000",
+      fontSize: "18px",
+      fill: "#FFFFFF",
     });
 
     // Collide the player and the stars with the platforms
@@ -120,7 +125,7 @@ export class Play2 extends Phaser.Scene {
       loop: true 
     });
 
-    timeText2 = this.add.text(500, 16, '', { fontSize: '32px', fill: '#000' });
+    timeText2 = this.add.text(630, 6, '', { fontSize: '18px', fill: '#FFFFFF' });
   }
 
   onSecond() {
@@ -160,16 +165,17 @@ export class Play2 extends Phaser.Scene {
 
     // REPLACE player.body.touching.down
     if (cursors.up.isDown && player.body.blocked.down) {
-      player.setVelocityY(-330);
+      player.setVelocityY(-330); jump.play()
     }
   }
 
   collectStar(player, star) {
+    bite.play()
     star.disableBody(true, true);
 
     //  Add and update the score
     score += 10;
-    scoreText.setText("Score: " + score);
+    scoreText.setText("score: " + score);
 
     if (stars.countActive(true) === 0) {
       //  A new batch of stars to collect

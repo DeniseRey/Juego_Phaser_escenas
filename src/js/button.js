@@ -8,7 +8,8 @@ class Button {
                 backgroundColor: '#FFE858', 
                 fontSize: '50px', 
                 fill: '#A31C3F', 
-                fontFamily: 'Cambria'
+                fontFamily: 'Cambria',
+                borderRadius: '20%',
             })
             .setInteractive({ useHandCursor: true })
             .on('pointerdown', () => callback())

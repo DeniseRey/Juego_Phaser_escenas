@@ -9,6 +9,8 @@ var scoreText;
 var initialTime
 var timeText
 var timedEvent
+var bite
+var jump
 
 // Clase Play, donde se crean todos los sprites, el escenario del juego y se inicializa y actualiza toda la logica del juego.
 export class Play extends Phaser.Scene {
@@ -25,6 +27,9 @@ export class Play extends Phaser.Scene {
 
   create() {
     const map = this.make.tilemap({ key: "map" });
+
+    bite = this.sound.add('bite', {volume: 0.5})
+    jump = this.sound.add('jump', {volume: 0.5})
 
     // Parameters are the name you gave the tileset in Tiled and then the key of the tileset image in
     // Phaser's cache (i.e. the name you used in preload)
@@ -91,8 +96,8 @@ export class Play extends Phaser.Scene {
 
     //  The score
     scoreText = this.add.text(30, 6, "score: 0", {
-      fontSize: "32px",
-      fill: "#000",
+      fontSize: "18px",
+      fill: "#FFFFFF",
     });
 
     // Collide the player and the stars with the platforms
@@ -110,7 +115,7 @@ export class Play extends Phaser.Scene {
     score = 0;
 
     // Si no junta las estrellas en 30 segundas --> Game Over
-    initialTime = 60
+    initialTime = 75
     //timedEvent = this.time.delayedCall(1000, this.onSecond, [], this, true);
     timedEvent = this.time.addEvent({ 
       delay: 1000, 
@@ -119,7 +124,7 @@ export class Play extends Phaser.Scene {
       loop: true 
     });
 
-    timeText = this.add.text(500, 16, '', { fontSize: '32px', fill: '#000' });
+    timeText = this.add.text(630, 6, '', { fontSize: '18px', fill: '#FFFFFF' });
   }
 
   onSecond() {
@@ -159,16 +164,16 @@ export class Play extends Phaser.Scene {
 
     // REPLACE player.body.touching.down
     if (cursors.up.isDown && player.body.blocked.down) {
-      player.setVelocityY(-330);
-    }
+      player.setVelocityY(-330);       jump.play()}
   }
 
   collectStar(player, star) {
+    bite.play()
     star.disableBody(true, true);
 
     //  Add and update the score
     score += 10;
-    scoreText.setText("Score: " + score);
+    scoreText.setText("score: " + score);
 
     if (stars.countActive(true) === 0) {
       //  A new batch of stars to collect
